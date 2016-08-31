@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>html imports</title>
+    <link rel="import" href="static/templates.html">
+    <link rel="stylesheet" href="static/templates.css">
+</head>
+<body>
+
+<div id="test">div test</div>
+<div id="canvas"></div>
+<script src="static/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="static/bower_components/webcomponentsjs/HTMLImports.min.js"></script>
+<script src="static/templates.js"></script>
+<script>
+    $(function () {
+        console.log('we started');
+    });
+       window.addEventListener('HTMLImportsLoaded', function (e) {
+        console.log('Loaded import: ');
+        loadTemplate('c11');
+    });
+</script>
+</body>
+</html>

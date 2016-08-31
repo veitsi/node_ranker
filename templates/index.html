@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>node ranker v02</title>
+    <link href="static/image-picker.css" rel="stylesheet">
+</head>
+<body>
+<button id="alts-button">play again</button>
+<div class="picker">
+    <select class="image-picker show-labels show-html">
+        {%for img in imgs %}
+        <option data-img-src="static/thumbnails/{{img.src}}" value="{{img.id}}">{{img.descr}}</option>
+        {%endfor %}
+    </select>
+</div>
+<div id="result" style="border-color: red">
+
+</div>
+
+<script src="static/jquery.js"></script>
+<script src="static/image-picker.min.js"></script>
+<script>
+    function alts_button(){
+        $('#alts-button').hide();
+        $('#result').hide();
+        $('.picker').show();
+
+    }
+    function onAjaxSuccess(json){
+        json=json.alts;
+        console.log(json);
+        $('.picker').hide();
+        $('#alts-button').show();
+        $('#result').show().empty();
+        $('<span>you was looking for</span>').appendTo($('#result'));
+        $('<img src="static/thumbnails/'+json[0]['src']+'" title="'+
+                    json[0]['descr']+'"><br>').appendTo($('#result'));
+        for(var i=1;i<json.length;i++){
+            console.log('we are adding'+i);
+            $('<img src="static/thumbnails/'+json[i]['src']+'" title="'+
+                    json[i]['descr']+'">').appendTo($('#result'));
+        }
+    }
+    jQuery(function () {
+        $('#alts-button').click(alts_button).hide();
+        $('#result').hide();
+        console.log("ready!");
+        $("select").imagepicker();
+        $("select.image-picker").imagepicker({
+            hide_select: false,
+            show_label: true,
+            clicked: function () {
+                var id=$('select').val();
+                console.log('you chosen something ' + id );
+                $.getJSON('http://0.0.0.0:8080/'+id,{},onAjaxSuccess)
+            }
+        });
+    });
+</script>
+</body>
+</html>

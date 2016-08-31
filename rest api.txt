@@ -1,0 +1,61 @@
+api  for stylist
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?l=12&apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+<only 12 records>
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?l=12&q={"typePrefix":"Платье"}&apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+request by categories
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+[ { "_id" : "1111" , "name" : "John"} ]
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?c=true&apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+7
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?l=4&apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+<only 4 records>
+https://api.mlab.com/api/1/databases/shopeiro/collections/tools?q={%20%22%D1%86%D0%B2%D0%B5%D1%82%22:%20%22%D0%B1%D0%B5%D0%BB%D1%8B%D0%B9%22}&apiKey=gyxt40ZuBvX0-Zs_ASfIphz87os52wgf
+[ { "_id" : "MI052EWISL38IN" , "возраст" : "Взрослый" , "коллекция" : "Весна-лето 2016" , "пол" : "Женский" , "price" : "550.0" , "market_category" : "Одежда, обувь и аксессуары/Женская одежда/Одежда/Платья" , "страна-изготовитель" : "Великобритания" , "description" : "Платье Missi London. Цвет: белый. Сезон: Весна-лето 2016." , "typePrefix" : "Платье" , "цвет" : "белый" , "sizes" : [ 42 , 44] , "сезонность" : "Лето" , "pictures" : [ "MI052EWISL38_1_v2.jpg" , "MI052EWISL38_6_v1.jpg" , "MI052EWISL38_7_v1.jpg" , "MI052EWISL38_8_v1.jpg"]} ]
+
+List documents
+
+To get the documents in the specified collection. If no parameters are passed, it lists all of them. Otherwise, it lists the documents in the collection matching the specified parameters:
+
+GET /databases/{database}/collections/{collection}
+
+Example listing all documents in a given collection:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?apiKey=myAPIKey
+
+Optional parameters
+[q=<query>][&c=true][&f=<fields>][&fo=true][&s=<order>][&sk=<skip>][&l=<limit>]
+
+     Your API key, including any clients from which your API key can be recovered, should not be distributed to non-administrators.
+
+Optional parameters (MongoDB reference):
+
+    q=<query> - restrict results by the specified JSON query
+    c=true - return the result count for this query
+    f=<set of fields> - specify the set of fields to include or exclude in each document (1 - include; 0 - exclude)
+    fo=true - return a single document from the result set (same as findOne() using the mongo shell
+    s=<sort order> - specify the order in which to sort each specified field (1- ascending; -1 - descending)
+    sk=<num results to skip> - specify the number of results to skip in the result set; useful for paging
+    l=<limit> - specify the limit for the number of results (default is 1000)
+
+Examples using these parameters:
+
+"q" example - return all documents with "active" field of true:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?q={"active": true}&apiKey=myAPIKey
+
+"c" example - return the count of documents with "active" of true:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?q={"active": true}&c=true&apiKey=myAPIKey
+
+"f" example (include) - return all documents but include only the "firstName" and "lastName" fields:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?f={"firstName": 1, "lastName": 1}&apiKey=myAPIKey
+
+"f" example (exclude) - return all documents but exclude the "notes" field:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?f={"notes": 0}&apiKey=myAPIKey
+
+"fo" example - return a single document matching "active" field of true:
+https://api.mlab.com/api/1/databases/my-db/collections/my-coll?q={"active": true}&fo=true&apiKey=myAPIKey
+
+"s" example - return all documents sorted by "priority" ascending and "difficulty" descending:
+ https://api.mlab.com/api/1/databases/my-db/collections/my-coll?s={"priority": 1, "difficulty": -1}&apiKey=myAPIKey
+
+"sk" and "l" example - sort by "name" ascending and return 10 documents after skipping 20
+ https://api.mlab.com/api/1/databases/my-db/collections/my-coll?s={"name":1}&sk=20&l=10&apiKey=myAPIKey
+
