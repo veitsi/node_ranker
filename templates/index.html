@@ -53,7 +53,7 @@
             clicked: function () {
                 var id=$('select').val();
                 console.log('you chosen something ' + id );
-                $.getJSON('http://0.0.0.0:8080/'+id,{},onAjaxSuccess)
+                $.getJSON(''+id,{},onAjaxSuccess)
             }
         });
     });
